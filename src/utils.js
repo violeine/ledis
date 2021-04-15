@@ -14,7 +14,17 @@ export function replacer(key, value) {
   return value;
 }
 
-function releiver() {}
+export function releiver(key, value) {
+  if (typeof value === "object" && value !== null) {
+    if (value.type === "Map") {
+      return new Map(value.value);
+    }
+    if (value.type === "Set") {
+      return new Set(value.value);
+    }
+  }
+  return value;
+}
 
 export function intersection(...args) {
   function inter(setA, setB) {
@@ -30,4 +40,8 @@ export function intersection(...args) {
     if (acc.size == 0) return acc;
     return inter(acc, el);
   }, args[0]);
+}
+
+export function now() {
+  return Math.floor(Date.now() / 1000);
 }

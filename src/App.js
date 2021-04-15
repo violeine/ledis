@@ -4,16 +4,22 @@ import { replacer } from "./utils.js";
 import { hot } from "react-hot-loader/root";
 
 function App() {
-  const [history, store, rep] = useLedis();
+  const [history, store, exp, rep] = useLedis();
+  const debugRef = useRef(null);
+  useEffect(() => {
+    debugRef.current.scrollTop = debugRef.current.scrollHeight;
+    // ttyRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [store, history]);
   return (
     <div className="flex flex-col h-screen w-full">
       <div className=" bg-red-50 h-3/4 flex">
         <div className="w-3/4 bg-indigo-200">
           <Cli history={history} rep={rep} />
         </div>
-        <div className="w-1/4 bg-green-500">
+        <div className="w-1/4 bg-green-500 overflow-auto" ref={debugRef}>
           <pre> {JSON.stringify(store, replacer, 2)} </pre>
-          <pre> {JSON.stringify(history, null, 2)} </pre>
+          <pre> {JSON.stringify(exp, replacer, 2)} </pre>
+          <pre> {JSON.stringify(history, replacer, 2)} </pre>
         </div>
       </div>
       <div className=" bg-green-50  h-1/4"> a</div>
@@ -33,8 +39,8 @@ function Cli({ history, rep }) {
         {history.map(({ cmd, result }) => {
           return (
             <>
-              <div className="text-red-50"> {cmd} </div>;
-              <div className="text-red-50"> {result} </div>;
+              <div className="text-red-50"> {cmd} </div>
+              <div className="text-red-50"> {result} </div>
             </>
           );
         })}
