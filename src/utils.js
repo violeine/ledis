@@ -36,10 +36,12 @@ export function intersection(...args) {
     }
     return _intersection;
   }
-  return args.reduce((acc, el) => {
-    if (acc.size == 0) return acc;
-    return inter(acc, el);
-  }, args[0]);
+  return Array.from(
+    args.reduce((acc, el) => {
+      if (acc.size == 0) return acc;
+      return inter(acc, el);
+    }, args[0]),
+  );
 }
 
 export function now() {
