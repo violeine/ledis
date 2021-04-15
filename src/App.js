@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useLedis } from "./useLedis.js";
 import { replacer } from "./utils.js";
 import { hot } from "react-hot-loader/root";
@@ -8,7 +8,6 @@ function App() {
   const debugRef = useRef(null);
   useEffect(() => {
     debugRef.current.scrollTop = debugRef.current.scrollHeight;
-    // ttyRef.current.scrollIntoView({ behavior: "smooth" });
   }, [store, history]);
   return (
     <div className="flex flex-col h-screen w-full">
@@ -36,11 +35,12 @@ function Cli({ history, rep }) {
   return (
     <div className="p-5 flex flex-col h-full w-full">
       <div className="bg-gray-900 p-2 flex-1 overflow-auto" ref={ttyRef}>
-        {history.map(({ cmd, result }) => {
+        {history.map(({ cmd, result, error }) => {
           return (
             <>
               <div className="text-red-50"> {cmd} </div>
               <div className="text-red-50"> {result} </div>
+              <div className="text-red-500"> {error} </div>
             </>
           );
         })}
@@ -50,12 +50,9 @@ function Cli({ history, rep }) {
         <input
           type="text"
           className="w-full h-full block p-2 bg-red-50 focus:outline-none"
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
           onKeyDown={(e) => {
             if (e.key == "Enter") {
-              rep(e.target.value);
+              rep(e.target.value.trim());
               e.target.value = "";
             }
           }}
