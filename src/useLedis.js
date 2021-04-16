@@ -126,7 +126,8 @@ export function useLedis() {
       if (isExpire(k)) {
         throw "ERROR: key not found";
       } else {
-        return exp.get(k) - now();
+        if (exp.has(k)) return exp.get(k) - now();
+        return -1;
       }
     },
     save: function () {
@@ -137,6 +138,7 @@ export function useLedis() {
     restore: function () {
       const store = localStorage.getItem("store");
       const exp = localStorage.getItem("expire");
+      if (store === null) return "No snapshot to restore";
       setStore(JSON.parse(store, releiver));
       setExp(JSON.parse(exp, releiver));
       return "OK";

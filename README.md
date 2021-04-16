@@ -1,6 +1,6 @@
-# react-tw-template
+# Ledis
 
-Empty project.
+redis without r
 
 ## Building and running on localhost
 
@@ -30,10 +30,6 @@ npm run build-dev
 
 ## Running
 
-Open the file `dist/index.html` in your browser
-
 ## Credits
 
 Made with [createapp.dev](https://createapp.dev/)
-
-https://stackoverflow.com/a/56150320
