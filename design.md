@@ -12,6 +12,8 @@ key is a `string` and value is either another `string` or `Set`
 - We can interact with store by provided method in `Map` like `delete`, `get`,
   `set`, `keys`
 
+- To keep it simple, the value is always a single string.
+
 ### String
 
 - String is simplest value we can store inside a key
@@ -169,3 +171,5 @@ I didn't account for.
 The `EXPIRE` and `Argument check` is still clunky
 
 Some of the return value of command is not clear
+
+Not handling string value that have whitespace in it

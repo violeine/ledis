@@ -4,7 +4,13 @@ import { intersection, now, replacer, releiver } from "./utils";
 export function useLedis() {
   const [store, setStore] = useState(new Map());
   const [exp, setExp] = useState(new Map());
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState([
+    {
+      cmd: "Welcome to ledis",
+      result:
+        "this is a repl to interact with ledis. Use `clear` command to clear the history",
+    },
+  ]);
   const Commands = {
     clear: function () {
       return "clear";
